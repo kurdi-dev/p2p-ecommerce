@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.12.3",
+  "appInfo": {
+    "name": "p2p-ecommerce",
+    "description": "peer-to-pee e-commerce application.",
+    "version": "ksredh7s",
+    "id": "cl1j86ut297904401s6j71fra90",
+    "url": "https://app.amplication.com/cl1j86ut297904401s6j71fra90",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "p2pdb",
+      "dbPassword": "admin",
+      "dbPort": 5432,
+      "dbUser": "admin",
+      "appId": "cl1j86ut297904401s6j71fra90",
+      "authProvider": "Jwt"
+    }
+  }
+}

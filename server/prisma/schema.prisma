@@ -1,0 +1,71 @@
+datasource postgres {
+  provider = "postgresql"
+  url      = env("POSTGRESQL_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  createdAt DateTime  @default(now())
+  firstName String?
+  id        String    @id @default(cuid())
+  lastName  String?
+  password  String
+  products  Product[]
+  roles     String[]
+  updatedAt DateTime  @updatedAt
+  username  String    @unique
+}
+
+model Category {
+  child_id    Category?  @relation(name: "child_id", fields: [child_idId], references: [id])
+  child_idId  String?
+  createdAt   DateTime   @default(now())
+  description String?
+  enabled     Boolean
+  id          String     @id @default(cuid())
+  name        String
+  parent_id   Category[] @relation(name: "child_id")
+  products    Product[]
+  updatedAt   DateTime   @updatedAt
+}
+
+model Product {
+  categoryId       Category?           @relation(fields: [categoryIdId], references: [id])
+  categoryIdId     String?
+  createdAt        DateTime            @default(now())
+  currency         EnumProductCurrency
+  description      String?
+  enabled          Boolean?
+  featuredProducts FeaturedProduct[]
+  id               String              @id @default(cuid())
+  name             String
+  price            Float
+  status           EnumProductStatus?
+  updatedAt        DateTime            @updatedAt
+  userId           User                @relation(fields: [userIdId], references: [id])
+  userIdId         String
+}
+
+model FeaturedProduct {
+  createdAt DateTime @default(now())
+  endDate   DateTime
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  startDate DateTime
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumProductCurrency {
+  usd
+  iqd
+}
+
+enum EnumProductStatus {
+  available
+  sold
+  canceled
+}
